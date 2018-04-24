@@ -1,0 +1,17 @@
+MIN - devolve o valor mínimo
+MAX - devolve o valor máximo
+AVG - devolve a média
+COUNT - devolve a quantidade
+SUM - soma a coluna
+
+SELECT * FROM TABELA1 AS NICKNAME1
+INNER JOIN TABELA2 AS NICKNAME2
+ON NICKNAME1.COLUNA1 = NICKNAME2.COLUNA2
+WHERE DESCRICAO LIKE '%BLA%';
+
+
+*COLUNA1 e COLUNA2 não necessariamente têm o mesmo nome.
+
+BEGIN TRAN X
+                ---- "trava" a tabela até dar o commit, para se precisar dar para fazer rollback (rollbacka tudo)
+COMMIT TRAN X
