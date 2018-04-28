@@ -12,6 +12,16 @@ WHERE DESCRICAO LIKE '%BLA%';
 
 *COLUNA1 e COLUNA2 não necessariamente têm o mesmo nome.
 
-BEGIN TRAN X
-                ---- "trava" a tabela até dar o commit, para se precisar dar para fazer rollback (rollbacka tudo)
-COMMIT TRAN X
+BEGIN TRAN X  \
+                > ---- "trava" a tabela até dar o commit, para se precisar dar para fazer rollback (rollbacka tudo)
+COMMIT TRAN X /
+
+CREATE TABLE #TABELA(   ---- # mostra que a tabela vai ser temporária
+...
+)
+
+
+SELECT 1 ID, 'MARIANA' NOME   ---- cria a tabela BLA que ainda não foi criada e insere os valores ID = 1 e NOME = 'MARIANA'
+INTO BLA
+
+SELECT FROM mostra na tela SELECT INTO coloca em algum lugar e não mostra nada
