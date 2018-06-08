@@ -1,33 +1,43 @@
-CREATE TABLE Prova(
-	IdProva INT PRIMARY KEY,
-	Nome VARCHAR(100) NOT NULL,
-	DataAplicacao DATETIME
-)
+CREATE TABLE [dbo].[Prova] (
+    [IdProva]       INT           NOT NULL IDENTITY,
+    [Nome]          VARCHAR (100) NOT NULL,
+    [DataAplicacao] DATETIME      NULL,
+    PRIMARY KEY CLUSTERED ([IdProva] ASC)
+);
 
-CREATE TABLE Questao(
-	IdQuestao INT PRIMARY KEY,
-	Nome VARCHAR(100) NOT NULL,
-	Enunciado VARCHAR(8000) NOT NULL
-)
 
-CREATE TABLE ProvaQuestao(
-	IdProvaQuestao INT PRIMARY KEY,
-	IdProva INT FOREIGN KEY REFERENCES dbo.Prova(IdProva),
-	IdQuestao INT FOREIGN KEY REFERENCES dbo.Questao(IdQuestao),
-	Valor FLOAT NOT NULL
-)
+CREATE TABLE [dbo].[Questao] (
+    [IdQuestao] INT            NOT NULL IDENTITY,
+    [Nome]      VARCHAR (100)  NOT NULL,
+    [Enunciado] VARCHAR (8000) NOT NULL,
+    PRIMARY KEY CLUSTERED ([IdQuestao] ASC)
+);
 
-CREATE TABLE Aluno(
-	IdAluno INT PRIMARY KEY,
-	Nome VARCHAR(100) NOT NULL,
-	Email VARCHAR(320),
-	RA VARCHAR(20) NOT NULL
-)
+CREATE TABLE [dbo].[ProvaQuestao] (
+    [IdProvaQuestao] INT        NOT NULL IDENTITY,
+    [IdProva]        INT        NULL,
+    [IdQuestao]      INT        NULL,
+    [Valor]          FLOAT (53) NOT NULL,
+    PRIMARY KEY CLUSTERED ([IdProvaQuestao] ASC),
+    FOREIGN KEY ([IdProva]) REFERENCES [dbo].[Prova] ([IdProva]),
+    FOREIGN KEY ([IdQuestao]) REFERENCES [dbo].[Questao] ([IdQuestao])
+);
 
-CREATE TABLE AlunoProvaQuestao(
-	IdAlunoProvaQuestao INT PRIMARY KEY,
-	IdProvaQuestao INT FOREIGN KEY REFERENCES ProvaQuestao(IdProvaQuestao),
-	IdAluno INT FOREIGN KEY REFERENCES Aluno(IdAluno),
-	Resposta VARCHAR(8000),
-	Nota FLOAT NOT NULL
-)
+CREATE TABLE [dbo].[Aluno] (
+    [IdAluno] INT           NOT NULL IDENTITY,
+    [Nome]    VARCHAR (100) NOT NULL,
+    [Email]   VARCHAR (320) NULL,
+    [RA]      VARCHAR (20)  NOT NULL,
+    PRIMARY KEY CLUSTERED ([IdAluno] ASC)
+);
+
+CREATE TABLE [dbo].[AlunoProvaQuestao] (
+    [IdAlunoProvaQuestao] INT            NOT NULL IDENTITY,
+    [IdProvaQuestao]      INT            NULL,
+    [IdAluno]             INT            NULL,
+    [Resposta]            VARCHAR (8000) NULL,
+    [Nota]                FLOAT (53)     NOT NULL,
+    PRIMARY KEY CLUSTERED ([IdAlunoProvaQuestao] ASC),
+    FOREIGN KEY ([IdProvaQuestao]) REFERENCES [dbo].[ProvaQuestao] ([IdProvaQuestao]),
+    FOREIGN KEY ([IdAluno]) REFERENCES [dbo].[Aluno] ([IdAluno])
+);
